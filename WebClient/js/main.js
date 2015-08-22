@@ -1,7 +1,7 @@
 var currentlyStreaming = false;
 var currentlyPreviewing = false;
 var totalSecondsStreaming = 0;
-var isRecording = false;
+var currentlyRecording = false;
 
 /*auth variables*/
 var authSalt = "";
@@ -311,7 +311,7 @@ function onStartStreaming(update)
 			streamConfigStartStreaming();
 		}
 
-        if (!isRecording) {
+        if (!currentlyRecording) {
             $("#button1").css("visibility", "hidden");
             $("#button3").css("visibility", "hidden");
             $("#button2 p:first").html("Stop " + ((previewOnly) ? "Preview" : "Streaming"));
@@ -341,7 +341,7 @@ function onStopStreaming(update)
 		$("#button2 p:first").html("Start Preview");
 		$("#button3 p:first").html("Start Recording");
 		$("#StatsTable").css("visibility", "hidden");
-	    isRecording = false;
+	    currentlyRecording = false;
 	}
 	
 	streamConfigStopStreaming(totalSecondsStreaming);
@@ -384,7 +384,7 @@ function startRecording()
 {
 	var myJSONRequest = {};
 	myJSONRequest["request-type"] = "StartStopRecording";
-    isRecording = true;
+    currentlyRecording = true;
 
 	sendMessage(myJSONRequest);
 }
