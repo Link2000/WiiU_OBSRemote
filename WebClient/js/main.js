@@ -7,6 +7,9 @@ var initializingRecord = false;
 var initializingStream = false;
 var initializingPreview = false;
 
+var finalizeRecord = false;
+
+
 /*auth variables*/
 var authSalt = "";
 var authChallenge = "";
@@ -260,7 +263,7 @@ function onStreamStatus(update)
 	{
 		onStartStreaming(update);
 	}
-	else if(!newStreaming && (currentlyStreaming || currentlyPreviewing))
+	else if((!newStreaming && (currentlyStreaming || currentlyPreviewing)) || finalizeRecord)
 	{
 		onStopStreaming(update);
 		totalSecondsStreaming = 0;
@@ -318,7 +321,7 @@ function onStartStreaming(update)
 	
 	if (initializingRecord)
 	{
-		$("#button2").css("visibility", "hidden");
+		//$("#button2").css("visibility", "hidden");
 		$("#button3 p:first").html("Stop Recording");
 	}
 	else //stream or preview
@@ -337,19 +340,26 @@ function onStartStreaming(update)
 
 function onStopStreaming(update)
 {
-	console.log("stop stream");
-	if(currentlyStreaming || currentlyPreviewing)
+	console.log("onStopStreaming");
+	console.log(update);
+	if(currentlyStreaming || currentlyPreviewing || currentlyRecording)
 	{
-		currentlyStreaming = false;
-		currentlyPreviewing = false;
-		$("#OnTheAir").attr("class", null);
-		$("#OnTheAir p:first").text("OFF THE AIR");
-		$("#button1").css("visibility", "visible");
-		$("#button2").css("visibility", "visible");
+		if (!finalizeRecord)
+		{//stream or preview
+			currentlyStreaming = false;
+			currentlyPreviewing = false;
+			$("#OnTheAir").attr("class", null);
+			$("#OnTheAir p:first").text("OFF THE AIR");
+			$("#StatsTable").css("visibility", "hidden");
+			$("#button1").css("visibility", "visible");
+			$("#button2").css("visibility", "visible");
+			$("#button2 p:first").html("Start Preview");
+		}
+
 		$("#button3").css("visibility", "visible");
-		$("#button2 p:first").html("Start Preview");
 		$("#button3 p:first").html("Start Recording");
-		$("#StatsTable").css("visibility", "hidden");
+		
+		finalizeRecord = false;
 	    currentlyRecording = false;
 	}
 	
@@ -400,7 +410,11 @@ function startRecording()
 	if (!currentlyRecording)
 	{
 		currentlyRecording = true;
-		initializingRecord = true;		
+		initializingRecord = true;
+	}
+	else
+	{
+		finalizeRecord = true;
 	}
 	
 	sendMessage(myJSONRequest);
