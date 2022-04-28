@@ -10,4 +10,4 @@ Wii U Webclient Plugin for Open Broadcaster Software using vad710/OBSRemote fork
 
 Original Live at www.obsremote.com
 
-Work in Progress Link: https://rawcdn.githack.com/Link2000/WiiU_OBSRemote/tree/master/WebClient
+Work in Progress Link: https://magischerstock.github.io/WiiU_OBSRemote/WebClient/index.html
