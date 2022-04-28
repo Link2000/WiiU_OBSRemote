@@ -12,7 +12,6 @@ Release/
 *.opensdf
 *.ipch
 *.filters
-*.css
 *.xslt
 *.aps
 *.suo
