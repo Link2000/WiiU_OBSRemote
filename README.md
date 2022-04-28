@@ -1,6 +1,11 @@
-OBSRemote
+Wii U OBSRemote
 =========
 
-Websocket Enabled API and Webclient Plugin for Open Broadcaster Software.
+*** work in progress ***
 
-Live at www.obsremote.com
+This is going to be a lightweight OBS Dashboard to use with the Wii U Browser to switch scenes and start/stop streaming
+
+Wii U Webclient Plugin for Open Broadcaster Software using vad710/OBSRemote fork of bilhamil/OBSRemote Websocket Enabled API
+
+
+Original Live at www.obsremote.com
